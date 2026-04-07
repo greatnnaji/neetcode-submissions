@@ -1,20 +1,23 @@
 from collections import Counter
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = Counter(nums)
-        
-        bucket = []
-        for _ in range(len(nums) + 1):
-            bucket.append([])
-        
-        for num, freq in count.items():
-            bucket[freq].append(num)
+        count = Counter(nums) # dict of val to occ
+        arr = [0] * (len(nums) + 1)
 
-        result = []
-        for i in range(len(bucket) - 1, 0, -1): # start len(bucket)-1, stop at 0, count down -1 (step), stop = 0 same as while stop > 0
-            for num in bucket[i]:
-                result.append(num)
-                if len(result) == k:
-                    return result
-        
-        return result
+        for val in count:
+            arr[count[val]] = [] # put empty array at occ loc
+
+        for val in count:
+            arr[count[val]].append(val)
+
+        num = 0
+        output = []
+        for val in reversed(arr):
+            idx = 0
+            if val != 0:
+                while num < k and idx < len(val):
+                    output.append(val[idx])
+                    num += 1
+                    idx += 1
+                    
+        return output
