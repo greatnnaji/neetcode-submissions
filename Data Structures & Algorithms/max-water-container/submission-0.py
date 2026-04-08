@@ -10,16 +10,11 @@ class Solution:
                 newA = dist * heights[r]
                 if maxA < newA: maxA = newA
                 r -= 1
-            # elif heights[r] > heights[l]:
-            #     maxA = dist * heights[l]
-            #     l += 1
             else:
                 newA = dist * heights[l]
                 if maxA < newA: maxA = newA
                 l += 1
         
-        print(maxA)
-
         return maxA
 
 
