@@ -1,30 +1,29 @@
 class Solution:
     def maxArea(self, heights: List[int]) -> int:
+        maxA = 0
+        l = 0
+        r = len(heights) - 1
 
-        start = 0
-        end = len(heights) - 1
-
-        max_area = 0
-
-        while start < end:
-            min_height = min(heights[start], heights[end])
-            print("min_height: ", min_height)
-
-            cur_area = (end-start) * min_height
-            print("cur_area: ", cur_area)
-
-            if cur_area > max_area:
-                max_area = cur_area
-
-            if min_height == heights[start]:
-                start += 1
+        while l < r:
+            dist = r - l
+            if heights[l] > heights[r]:
+                newA = dist * heights[r]
+                if maxA < newA: maxA = newA
+                r -= 1
+            # elif heights[r] > heights[l]:
+            #     maxA = dist * heights[l]
+            #     l += 1
             else:
-                end -= 1
+                newA = dist * heights[l]
+                if maxA < newA: maxA = newA
+                l += 1
         
-        print(max_area)
+        print(maxA)
 
-        return max_area
-            
-            
+        return maxA
 
+
+
+
+            
         
