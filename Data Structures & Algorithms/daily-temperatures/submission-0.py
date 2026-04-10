@@ -18,9 +18,6 @@ class Solution:
 
             stack.append(idx)
 
-            print("stack: ", stack)
-            print("result: ", result)
-
         # reverse result at end
         result = list(reversed(result))           
 
