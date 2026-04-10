@@ -1,52 +1,27 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        mon_stack = []
-        output = []
+        result = []
+        stack = []
 
-        reversed_temp = list(reversed(temperatures))
-    
-        for index, temp in enumerate(reversed_temp):
-            print("temp: ", temp)
-            if len(mon_stack) == 0:
-                output.append(0)
-                mon_stack.append(index)
-                # print("output: ", output)
-                # print("mon_stack: ", mon_stack)
+        rev_temp = list(reversed(temperatures))
+
+        for i, t in enumerate(rev_temp):
+            idx = len(rev_temp) - 1 - i
+
+            while stack and t >= temperatures[stack[-1]]:
+                stack.pop()
+            
+            if stack:
+                result.append(stack[-1] - idx)
             else:
-                print("mon_stack: ", mon_stack)
-                if temp < reversed_temp[mon_stack[-1]]:
-                    print("temp less...")
-                    # print("index: ", index)
-                    # print("mon_stack[-1]:", mon_stack[-1])
-                    output.append(abs(index - mon_stack[-1]))
-                    mon_stack.append(index)
-                else:
-                    print("temp greater...")
-                    print("mon_stack: ", mon_stack)
-                    while temp >= reversed_temp[mon_stack[-1]]:
-                        print(mon_stack[-1])
-                        print("temperatures[mon_stack[-1]]: ", reversed_temp[mon_stack[-1]])
-                        print("popping...")
-                        mon_stack.pop()
-                        if len(mon_stack) == 0: 
-                            # output.append(0)
-                            break
-                    print("mon_stack: ", mon_stack)
-                    if len(mon_stack) == 0: 
-                        output.append(0)
-                    else:
-                        print("GREATER")
-                        print("index: ", index)
-                        print("mon_stack[-1]:", mon_stack[-1])
-                        output.append(abs(index - mon_stack[-1]))
+                result.append(0)
 
-                    mon_stack.append(index)
-                    print("mon_stack: ", mon_stack)
+            stack.append(idx)
 
-                print("output: ", output)
-        
-        print("output: " , output)
-        
-        # reverse output before return
+            print("stack: ", stack)
+            print("result: ", result)
 
-        return list(reversed(output))
+        # reverse result at end
+        result = list(reversed(result))           
+
+        return result
