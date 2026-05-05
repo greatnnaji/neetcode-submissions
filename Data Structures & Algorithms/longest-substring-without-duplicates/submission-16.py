@@ -1,0 +1,26 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        maxLen = 0
+        unique = set()
+        l = 0
+
+        # for r in range(len(s)):
+        #     if s[r] not in unique:
+        #         unique.add(s[r])
+        #     else:
+        #         maxLen = max(maxLen, len(unique))
+        #         while s[r] in unique:
+        #             unique.remove(s[l])
+        #             l += 1
+        #         unique.add(s[r])
+        
+        for r in range(len(s)):
+            while s[r] in unique:
+                unique.remove(s[l])
+                l += 1
+            unique.add(s[r])
+            maxLen = max(maxLen, len(unique))
+
+        print(maxLen)
+
+        return maxLen
